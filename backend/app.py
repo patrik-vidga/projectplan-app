@@ -11,6 +11,11 @@ DATA_PATH = os.path.join(app.root_path, 'data', 'tasks.csv')
 @app.route('/api/tasks')
 def get_tasks():
     df = pd.read_csv(DATA_PATH)
+    df = df.rename(columns={
+        'Task Name': 'task',
+        'Start': 'start',
+        'Finish': 'end'
+    })
     return jsonify(df.to_dict(orient='records'))
 
 # Serve React build
